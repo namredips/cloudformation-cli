@@ -91,13 +91,13 @@ class Uploader:
             result = self.cfn_client.create_stack(
                 **args,
                 EnableTerminationProtection=True,
-                Capabilities=["CAPABILITY_IAM"],
+                Capabilities=["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"],
             )
         except self.cfn_client.exceptions.AlreadyExistsException:
             LOG.info("%s already exists. " "Attempting to update", stack_name)
             try:
                 result = self.cfn_client.update_stack(
-                    **args, Capabilities=["CAPABILITY_IAM"]
+                    **args, Capabilities=["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"]
                 )
             except ClientError as e:
                 # if the update is a noop, don't do anything else
