@@ -37,6 +37,7 @@ def setup_subparser(subparsers, parents):
         action="store_true",
         help="If registration is successful, set submitted version to the default.",
     )
+
     role_group = parser.add_mutually_exclusive_group()
     role_group.add_argument(
         "--role-arn",
