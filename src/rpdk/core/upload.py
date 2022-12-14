@@ -88,10 +88,12 @@ class Uploader:
         # attempt to create stack. if the stack already exists, try to update it
         LOG.info("Creating %s", stack_name)
         try:
+            Capabilities = ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"]
+            LOG.info("Capabilities %s", Capabilities)
             result = self.cfn_client.create_stack(
                 **args,
                 EnableTerminationProtection=True,
-                Capabilities=["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"],
+                Capabilities=Capabilities,
             )
         except self.cfn_client.exceptions.AlreadyExistsException:
             LOG.info("%s already exists. " "Attempting to update", stack_name)
